@@ -18,4 +18,6 @@ NODO BASE producto vehiculo contacto
 Estructura inventario lote agenda TRANSPARENTE agregar(producto) eliminar(codigo) listado() listadoinverso() buscar(codigo)
 
 aplicacion crear productos y guardar
+
+
 no shift, no unshift, no splice, no reverse
