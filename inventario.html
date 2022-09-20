@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="producto.js"></script>
+    <script src="inventario.js"></script>
+    <link rel="stylesheet" href="estilo.css">
+    <title></title>
+</head>
+<body>
+    <input type="text" name="codigo" id="inputCodigo" placeholder="codigo">
+    <input type="text" name="nombre" id="inputNombre" placeholder="nombre">
+    <input type="text" name="cantidad" id="inputCantidad" placeholder="cantidad">
+    <input type="text" name="costo" id="inputCosto" placeholder="costo">
+    <div>
+        <button class="botones" type="button" id="buttonAgregar">agregar</button>
+    </div>
+    <div>
+        <button class="botones" type="button" id="buttonEliminar">eliminar</button>
+    </div>
+    <div>
+        <button class="botones" type="button" id="buttonListado">listado</button>
+    </div>
+    <div>
+        <button class="botones" type="button" id="buttonListadoInverso">listadoinverso</button>
+    </div>
+    <div>
+        <button class="botones" type="button" id="buttonBuscar">buscar</button>
+    </div>
+    <div>
+        <button class="botones" type="button" id="buttonCancelar">cancelar</button>
+    </div>
+    <div id="mostrar">   
+    </div>
+    <script>
+        let inventario = new Inventario();
+        let buttonAgregar = document.getElementById('buttonAgregar');
+        let buttonEliminar = document.getElementById('buttonEliminar');
+        let buttonListado = document.getElementById('buttonListado');
+        let buttonListadoInverso = document.getElementById('buttonListadoInverso');
+        let buttonBuscar = document.getElementById('buttonBuscar');
+        let divmostrar = document.getElementById('mostrar');
+        buttonAgregar.addEventListener('click', () => {
+            let inputCodigo = document.getElementById('inputCodigo').value;
+            let inputNombre = document.getElementById('inputNombre').value;
+            let inputCantidad = document.getElementById('inputCantidad').value;
+            let inputCosto = document.getElementById('inputCosto').value;
+            let producto = new Producto(inputCodigo,inputNombre,inputCantidad,inputCosto);
+            inventario.agregar(producto);
+            //necesita que se borra el producto agregado anterior porque se sigue imprimiendo en cadena
+            divmostrar.innerHTML = JSON.stringify(inventario.catalogo) + ' se agrego';
+        });
+        buttonEliminar.addEventListener('click', () => {
+            let inputCodigo = document.getElementById('inputCodigo').value;
+            let valorCodigo = inventario.eliminar(inputCodigo);
+            if (valorCodigo == null) {
+                divmostrar.innerHTML ='<br>No existe el codigo';
+            } else {
+                divmostrar.innerHTML = JSON.stringify(valorCodigo) + ' se elimino';
+            }
+        });
+        buttonListado.addEventListener('click', () => {
+            for (let i = 0; i < inventario.catalogo.length; i++) {
+                divmostrar.innerHTML ='se imprimio el array en la consola';
+                console.log(inventario.listado(i));
+                //divmostrar.innerHTML = (inventario.listado(i)); no funciona no se porque
+            }
+        });
+        buttonListadoInverso.addEventListener('click', () => {
+            inventario.listadoinverso();
+            for (let i = 0; i < inventario.catalogo.length; i++) {
+                divmostrar.innerHTML ='se imprimio el array inverso en la consola';
+                console.log(inventario.listado(i));
+                //divmostrar.innerHTML = (inventario.listado(i)); tampoco funciona 
+            }
+        });
+        buttonBuscar.addEventListener('click', () => {
+            let inputCodigo = document.getElementById('inputCodigo').value;
+            let valorCodigo = inventario.buscar(inputCodigo);
+            if (valorCodigo == null) {
+                divmostrar.innerHTML ='no existe el codigo';
+            } else {
+                divmostrar.innerHTML = JSON.stringify(inventario.buscar(inputCodigo)) + ' es el producto encontrado';
+            }
+        });
+        buttonCancelar.addEventListener('click', () => {
+            document.getElementById('inputCodigo').value = '';
+            document.getElementById('inputNombre').value = '';
+            document.getElementById('inputCantidad').value = '';
+            document.getElementById('inputCosto').value = '';
+        });
+    </script>
+</body>
+</html>
