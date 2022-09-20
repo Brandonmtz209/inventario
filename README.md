@@ -9,18 +9,9 @@ CRUD
 Create Read Update Delete
 Sistemas de informacion
 Altas, bajas, modificaciones y consultas
+NODO BASE producto vehiculo contacto
 
+Estructura inventario lote agenda TRANSPARENTE agregar(producto) eliminar(codigo) listado() listadoinverso() buscar(codigo)
 
-NODO BASE     Estructura        Aplicacion
-producto       Inventario         crear productos y guardar
-vehiculo       Lote
-contacto       Agenda
-              TRANSPARENTE
-               agregar(producto)
-               eliminar(codigo)
-                    modificar(codigo)
-               listado()
-               listadoInverso()
-               buscar(codigo)
-                 
-no shift, no unshift, no splice, no reverse, no NADA de lo que ya hace la magia
+aplicacion crear productos y guardar
+no shift, no unshift, no splice, no reverse
