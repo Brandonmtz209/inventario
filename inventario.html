@@ -69,10 +69,9 @@
             }
         });
         buttonListadoInverso.addEventListener('click', () => {
-            inventario.listadoinverso();
-            for (let i = 0; i < inventario.catalogo.length; i++) {
+            for (let i = inventario.catalogo.length-1; i >= 0; i--) {
                 divmostrar.innerHTML ='se imprimio el array inverso en la consola';
-                console.log(inventario.listado(i));
+                console.log(inventario.listadoinverso(i));
                 //divmostrar.innerHTML = (inventario.listado(i)); tampoco funciona 
             }
         });
@@ -80,7 +79,7 @@
             let inputCodigo = document.getElementById('inputCodigo').value;
             let valorCodigo = inventario.buscar(inputCodigo);
             if (valorCodigo == null) {
-                divmostrar.innerHTML ='no existe el codigo';
+                divmostrar.innerHTML ='no existe el producto';
             } else {
                 divmostrar.innerHTML = JSON.stringify(inventario.buscar(inputCodigo)) + ' es el producto encontrado';
             }
