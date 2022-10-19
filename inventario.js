@@ -1,51 +1,94 @@
 class Inventario{
-    constructor(){
-        this.catalogo = [];
-        this.aux;
-        this.elim;
+    constructor(value, next){
+        this.value = value;
+        this.next = next;
+        this.primero=null;
     }
     agregar(producto){
-        this.catalogo.push(producto);
-        for(var i = 0; i < this.catalogo.length; i++){
-            for(var j = 0; j < (this.catalogo.length - i - 1); j++){
-                if(this.catalogo[j].codigo > this.catalogo[j+1].codigo){
-                    let aux = this.catalogo[j]
-                    this.catalogo[j] = this.catalogo[j + 1]
-                    this.catalogo[j+1] = aux
-                }
+        if (this.primero==null)
+        this.primero=producto;
+        else{
+            let temp=this.primero;
+            while (temp.next!=null)
+            temp=temp.next;
+            temp.next=producto;
+        }
+    }
+    listar(){
+        let res='';
+        let temp=this.primero;
+        while(temp!=null){
+            res+='Codigo: '+temp.codigo+', Nombre: '+temp.nombre +', Precio: '+temp.costo+', Cantidad: '+temp.cantidad+'<br>';
+            temp=temp.next;
+        }
+        return res;
+    }
+    buscar(codigo) {
+        let actual = this.primero;
+        while (actual) {
+            if (actual.codigo === codigo) {
+                return actual;
             }
-        }     
-    }
-    eliminar(codigo){
-        for (let i = 0; i < this.catalogo.length; i++) {
-            if (this.catalogo[i].codigo == codigo) {
-              this.elim = this.catalogo[i];
-              this.aux = this.catalogo[this.catalogo.length - 1];
-              this.catalogo[i] = this.aux;
-              this.catalogo[this.catalogo.length - 1] = this.elim;
-              return this.catalogo.pop();
-            }
-          }
-          return null;
-    }
-    listado(i){
-        return this.catalogo[i];
-    }
-    listadoinverso(i){
-        return this.catalogo[i];
-    }
-    buscar(codigo){ 
-        let inicio=0;
-        let fin=this.catalogo.length-1;
-        while (inicio<=fin){
-            let mitad=Math.floor((inicio + fin)/2);
-            if (this.catalogo[mitad].codigo === codigo)
-            return this.catalogo[mitad];      
-            else if (this.catalogo[mitad].codigo < codigo)
-            inicio = mitad + 1;
-            else
-            fin = mitad - 1;
+            actual = actual.next;
         }
         return null;
+    }
+    eliminar(codigo){
+        if (this.primero.codigo === codigo) {
+            this.primero = this.primero.next;
+            return 'el producto '+codigo;
+        } else {
+            let actual = this.primero;
+            while (actual.next) {
+                if (actual.next.codigo === codigo) {
+                    let aux = actual.next;
+                    actual.next = actual.next.next;
+                    return aux;
+                }
+                actual = actual.next;
+            }
+            return null;
+        }
+    }
+    listado(){
+        let res='';
+        let temp=this.primero;
+        while (temp!=null) {
+            res+='Codigo: '+temp.codigo+', Nombre: '+temp.nombre +', Precio: '+temp.costo+', Cantidad: '+temp.cantidad+'<br>';
+            temp=temp.next;
+        }                  
+        return res;
+    }
+    listadoinverso(){
+        let res='';
+        let temp=this.primero;
+        while (temp!=null) {
+            res ='Codigo: '+temp.codigo+', Nombre: '+temp.nombre +', Precio: '+temp.costo+', Cantidad: '+temp.cantidad+'<br>' +res;
+            temp=temp.next;
+        }                  
+        return res;
+    }
+    Insertar(posicion,producto){
+        let temp=this.primero;
+        let anterior=temp;
+        let lugar = 0;
+        while (temp!=null){
+            lugar++;
+            if(posicion==1){
+                producto.next = this.primero;
+                this.primero = producto;
+                return true;
+            }
+            else if(lugar==posicion){
+                producto.next=temp;
+                anterior.next=producto;
+                return true;
+            }else if (temp.next==null){
+                temp.next=producto;
+                return true;
+            }
+            anterior=temp;
+            temp=temp.next;
+        }
     }
 }
