@@ -32,6 +32,8 @@
     <div>
         <button class="botones" type="button" id="buttonCancelar">cancelar</button>
     </div>
+    <input type="text" name="posicion" id="inputPosicion" placeholder="posicion">
+    <button class="botones" type="button" id="buttonInsertar">insertar</button>
     <div id="mostrar">   
     </div>
     <script>
@@ -42,6 +44,7 @@
         let buttonListadoInverso = document.getElementById('buttonListadoInverso');
         let buttonBuscar = document.getElementById('buttonBuscar');
         let divmostrar = document.getElementById('mostrar');
+        let buttonInsertar = document.getElementById('buttonInsertar');
         buttonAgregar.addEventListener('click', () => {
             let inputCodigo = document.getElementById('inputCodigo').value;
             let inputNombre = document.getElementById('inputNombre').value;
@@ -50,36 +53,30 @@
             let producto = new Producto(inputCodigo,inputNombre,inputCantidad,inputCosto);
             inventario.agregar(producto);
             //necesita que se borra el producto agregado anterior porque se sigue imprimiendo en cadena
-            divmostrar.innerHTML = JSON.stringify(inventario.catalogo) + ' se agrego';
+            divmostrar.innerHTML = inventario.listar() + ' se agrego';
         });
         buttonEliminar.addEventListener('click', () => {
             let inputCodigo = document.getElementById('inputCodigo').value;
             let valorCodigo = inventario.eliminar(inputCodigo);
             if (valorCodigo == null) {
-                divmostrar.innerHTML ='<br>No existe el codigo';
+                divmostrar.innerHTML ='<br>No existe el producto';
             } else {
                 divmostrar.innerHTML = JSON.stringify(valorCodigo) + ' se elimino';
             }
         });
         buttonListado.addEventListener('click', () => {
-            for (let i = 0; i < inventario.catalogo.length; i++) {
-                divmostrar.innerHTML ='se imprimio el array en la consola';
-                console.log(inventario.listado(i));
-                //divmostrar.innerHTML = (inventario.listado(i)); no funciona no se porque
-            }
+            let listar = inventario.listado();
+            divmostrar.innerHTML = listar;
         });
         buttonListadoInverso.addEventListener('click', () => {
-            for (let i = inventario.catalogo.length-1; i >= 0; i--) {
-                divmostrar.innerHTML ='se imprimio el array inverso en la consola';
-                console.log(inventario.listadoinverso(i));
-                //divmostrar.innerHTML = (inventario.listado(i)); tampoco funciona 
-            }
+            let listarinverso = inventario.listadoinverso();
+            divmostrar.innerHTML = listarinverso;
         });
         buttonBuscar.addEventListener('click', () => {
             let inputCodigo = document.getElementById('inputCodigo').value;
             let valorCodigo = inventario.buscar(inputCodigo);
             if (valorCodigo == null) {
-                divmostrar.innerHTML ='no existe el producto';
+                divmostrar.innerHTML ='<br>no existe el producto';
             } else {
                 divmostrar.innerHTML = JSON.stringify(inventario.buscar(inputCodigo)) + ' es el producto encontrado';
             }
@@ -89,6 +86,17 @@
             document.getElementById('inputNombre').value = '';
             document.getElementById('inputCantidad').value = '';
             document.getElementById('inputCosto').value = '';
+        });
+        buttonInsertar.addEventListener('click', () => {
+            let inputCodigo = document.getElementById('inputCodigo').value;
+            let inputNombre = document.getElementById('inputNombre').value;
+            let inputCantidad = document.getElementById('inputCantidad').value;
+            let inputCosto = document.getElementById('inputCosto').value;
+            let inputInsertar = document.getElementById('inputPosicion').value;
+            let producto = new Producto(inputCodigo,inputNombre,inputCantidad,inputCosto);
+            inventario.Insertar(inputInsertar,producto);
+            //necesita que se borra el producto agregado anterior porque se sigue imprimiendo en cadena
+            divmostrar.innerHTML = inventario.listar() + ' se agrego';
         });
     </script>
 </body>
