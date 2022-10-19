@@ -1,24 +1,18 @@
 # inventario-con-vectores
 ESTRUCTURAS DE DATOS
 
-Se va a controlar un inventario de productos, de los que se guarda el codigo, nombre, cantidad y costo, utilizando un vector
-Podremos agregar, buscar por codigo, eliminar por codigo, insertar un producto en una posicion y recuperar el listado como texto.
-LOS ELEMENTOS SE AGREGAN Y QUEDAN ALMACENADOS ORDENADOS DE MANERA ASCENDENTE POR EL CÓDIGO QUE SERÁ NUMÉRICO.
-la busqueda es por busqueda binaria
-Crear una interfaz en HTML con cajas de texto para cada dato, al igual que botones para cada accion y un div al final donde se ira mostrando el detalle de las operaciones que se van realizando.
+Utilizando el mismo ejercicio de Inventario con que se ha venido trabajando se va a implementar un cambio en la estructura de datos para utilizar listas enlazadas simples, se va a considerar un ejemplo similar al primer ejercicio en donde los productos se acomodaban de acuerdo al orden en que llegaran (no es necesario ordenar) y por lo tanto si existe la opción de insertar un nuevo producto en determinada posición.
+Es decir, los métodos de Inventario deben permitir
 
 
-CRUD
-Create Read Update Delete
-Sistemas de informacion
-Altas, bajas, modificaciones y consultas
+Agregar, Buscar, Eliminar, Insertar, Listar y Listar Inverso 
 
 
-NODO BASE producto vehiculo contacto
-
-Estructura inventario lote agenda TRANSPARENTE agregar(producto) eliminar(codigo) listado() listadoinverso() buscar(codigo)
-
-aplicacion crear productos y guardar
+Para insertar lo harán poniendo la posición en que quieren que quede.
 
 
-no shift, no unshift, no splice, no reverse
+ejemplo:
+primero:3->4->7->1->2->9
+insertar(posicion,nuevo)
+insertar(2,{5})//el 5 quedo en la posicion 2
+primero:3->5->4->7->1->2->9
