@@ -27,7 +27,7 @@ class Inventario{
         let actual = this.primero;
         while (actual) {
             if (actual.codigo === codigo) {
-                return actual;
+                return 'Codigo: '+actual.codigo+', Nombre: '+actual.nombre +', Precio: '+actual.costo+', Cantidad: '+actual.cantidad;
             }
             actual = actual.next;
         }
