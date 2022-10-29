@@ -1,18 +1,36 @@
 class Inventario{
-    constructor(value, next){
-        this.value = value;
-        this.next = next;
+    constructor(value, next, previous){
+        this.value=value;
+        this.next=next;
+        this.previous=previous;
         this.primero=null;
     }
     agregar(producto){
-        if (this.primero==null)
-        this.primero=producto;
-        else{
-            let temp=this.primero;
-            while (temp.next!=null)
-            temp=temp.next;
-            temp.next=producto;
-        }
+        var actual;
+        if(this.primero == null){
+            this.primero = producto;
+            this.next=null;
+            this.previous=null;
+            //console.log("if donde se agrego el primero producto");
+        }else if((this.primero).codigo >= producto.codigo){
+            producto.next = this.primero;
+            producto.next.previous = producto;
+            this.primero = producto;
+            //console.log("else if donde el primero es mayor o igual que el producto que se quiere agregar");
+        }else{
+            actual = this.primero;
+            while (actual.next!=null && actual.next.codigo < producto.codigo)
+                actual = actual.next;
+                producto.next = actual.next;
+            //console.log("else while para recorrer todos los productos y el codigo del siguiente de su actual es menor que es codigo de producto");
+            if(actual.next!=null)
+                producto.next.previous = producto;
+                actual.next = producto;
+                producto.previous = actual;
+                //console.log("if si en actual ya no hay siguiente");
+            }
+            //console.log("afuera");
+            return this.primero;
     }
     listar(){
         let res='';
@@ -36,7 +54,7 @@ class Inventario{
     eliminar(codigo){
         if (this.primero.codigo === codigo) {
             this.primero = this.primero.next;
-            return 'el producto '+codigo;
+            return codigo;
         } else {
             let actual = this.primero;
             while (actual.next) {
@@ -67,28 +85,5 @@ class Inventario{
             temp=temp.next;
         }                  
         return res;
-    }
-    Insertar(posicion,producto){
-        let temp=this.primero;
-        let anterior=temp;
-        let lugar = 0;
-        while (temp!=null){
-            lugar++;
-            if(posicion==1){
-                producto.next = this.primero;
-                this.primero = producto;
-                return true;
-            }
-            else if(lugar==posicion){
-                producto.next=temp;
-                anterior.next=producto;
-                return true;
-            }else if (temp.next==null){
-                temp.next=producto;
-                return true;
-            }
-            anterior=temp;
-            temp=temp.next;
-        }
     }
 }
