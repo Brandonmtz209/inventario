@@ -32,8 +32,6 @@
     <div>
         <button class="botones" type="button" id="buttonCancelar">cancelar</button>
     </div>
-    <input type="text" name="posicion" id="inputPosicion" placeholder="posicion">
-    <button class="botones" type="button" id="buttonInsertar">insertar</button>
     <div id="mostrar">   
     </div>
     <script>
@@ -44,7 +42,6 @@
         let buttonListadoInverso = document.getElementById('buttonListadoInverso');
         let buttonBuscar = document.getElementById('buttonBuscar');
         let divmostrar = document.getElementById('mostrar');
-        let buttonInsertar = document.getElementById('buttonInsertar');
         buttonAgregar.addEventListener('click', () => {
             let inputCodigo = document.getElementById('inputCodigo').value;
             let inputNombre = document.getElementById('inputNombre').value;
@@ -61,7 +58,7 @@
             if (valorCodigo == null) {
                 divmostrar.innerHTML ='<br>No existe el producto';
             } else {
-                divmostrar.innerHTML = JSON.stringify(valorCodigo) + ' se elimino';
+                divmostrar.innerHTML = inputCodigo + ' se elimino';
             }
         });
         buttonListado.addEventListener('click', () => {
@@ -86,17 +83,6 @@
             document.getElementById('inputNombre').value = '';
             document.getElementById('inputCantidad').value = '';
             document.getElementById('inputCosto').value = '';
-        });
-        buttonInsertar.addEventListener('click', () => {
-            let inputCodigo = document.getElementById('inputCodigo').value;
-            let inputNombre = document.getElementById('inputNombre').value;
-            let inputCantidad = document.getElementById('inputCantidad').value;
-            let inputCosto = document.getElementById('inputCosto').value;
-            let inputInsertar = document.getElementById('inputPosicion').value;
-            let producto = new Producto(inputCodigo,inputNombre,inputCantidad,inputCosto);
-            inventario.Insertar(inputInsertar,producto);
-            //necesita que se borra el producto agregado anterior porque se sigue imprimiendo en cadena
-            divmostrar.innerHTML = inventario.listar() + ' se agrego';
         });
     </script>
 </body>
